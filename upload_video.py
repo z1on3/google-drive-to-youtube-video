@@ -1,6 +1,7 @@
 #!/usr/bin/python
+### edited 16.12.2024 for python 3 compat [c] Sami Karkar
 
-import httplib
+import http.client as httplib
 import httplib2
 import os
 import random
@@ -137,13 +138,13 @@ def resumable_upload(insert_request):
           print( "Video id '%s' was successfully uploaded." % response['id'])
         else:
           exit("The upload failed with an unexpected response: %s" % response)
-    except HttpError, e:
+    except (HttpError, e):
       if e.resp.status in RETRIABLE_STATUS_CODES:
         error = "A retriable HTTP error %d occurred:\n%s" % (e.resp.status,
                                                              e.content)
       else:
         raise
-    except RETRIABLE_EXCEPTIONS, e:
+    except (RETRIABLE_EXCEPTIONS, e):
       error = "A retriable error occurred: %s" % e
 
     if error is not None:
@@ -177,5 +178,5 @@ if __name__ == '__main__':
   youtube = get_authenticated_service(args)
   try:
     initialize_upload(youtube, args)
-  except HttpError, e:
+  except (HttpError, e):
     print( "An HTTP error %d occurred:\n%s" % (e.resp.status, e.content))
