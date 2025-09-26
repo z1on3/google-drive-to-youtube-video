@@ -57,7 +57,7 @@ For more information about the client_secrets.json file format, please visit:
 https://developers.google.com/api-client-library/python/guide/aaa_client_secrets
 """
 
-VALID_PRIVACY_STATUSES = ("public", "private", "unlisted")
+VALID_PRIVACY_STATUSES = ("unlisted", "private", "public")
 
 
 def get_authenticated_service(args):
